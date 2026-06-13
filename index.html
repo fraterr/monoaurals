@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monoaurals - Real Monaural Beat Generator</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-background">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-icon">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v20M17 5v14M22 9v6M7 5v14M2 9v6"/>
+                    </svg>
+                </span>
+                <h1>Monoaurals</h1>
+            </div>
+            <p class="subtitle">Scientific acoustic synthesis of real monaural beats and brainwave entrainment</p>
+        </header>
+
+        <main class="app-content">
+            <!-- Left Column: Controls -->
+            <section class="controls-column">
+                
+                <!-- Brainwaves Preset Card -->
+                <div class="control-card glass-panel" id="presets-section">
+                    <h2 class="card-title">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        Brainwaves (Presets)
+                    </h2>
+                    <div class="presets-grid">
+                        <!-- Delta -->
+                        <button class="preset-btn" data-preset="delta" data-freq="2.5">
+                            <span class="preset-name">Delta</span>
+                            <span class="preset-range">0.5 - 4 Hz</span>
+                            <span class="preset-desc">Deep sleep & regeneration</span>
+                        </button>
+                        <!-- Theta -->
+                        <button class="preset-btn active" data-preset="theta" data-freq="6.0">
+                            <span class="preset-name">Theta</span>
+                            <span class="preset-range">4 - 8 Hz</span>
+                            <span class="preset-desc">Meditation & sleep onset</span>
+                        </button>
+                        <!-- Alpha -->
+                        <button class="preset-btn" data-preset="alpha" data-freq="10.0">
+                            <span class="preset-name">Alpha</span>
+                            <span class="preset-range">8 - 12 Hz</span>
+                            <span class="preset-desc">Creativity & active relaxation</span>
+                        </button>
+                        <!-- Beta -->
+                        <button class="preset-btn" data-preset="beta" data-freq="20.0">
+                            <span class="preset-name">Beta</span>
+                            <span class="preset-range">12 - 30 Hz</span>
+                            <span class="preset-desc">Concentration & active focus</span>
+                        </button>
+                        <!-- Gamma -->
+                        <button class="preset-btn" data-preset="gamma" data-freq="40.0">
+                            <span class="preset-name">Gamma</span>
+                            <span class="preset-range">30 - 50 Hz</span>
+                            <span class="preset-desc">Memory & cognitive processing</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Frequency Tuning -->
+                <div class="control-card glass-panel">
+                    <h2 class="card-title">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 20v-8M17 20V12M7 20v-8M2 20V4M22 20V4"/>
+                        </svg>
+                        Audio Modulation
+                    </h2>
+                    
+                    <!-- Beat Frequency -->
+                    <div class="input-group">
+                        <div class="input-header">
+                            <label for="beat-freq">Stimulus Frequency (Beat)</label>
+                            <div class="value-display"><span id="beat-freq-val">6.0</span> Hz</div>
+                        </div>
+                        <div class="range-container">
+                            <input type="range" id="beat-freq" min="0.5" max="50" step="0.1" value="6.0">
+                        </div>
+                        <div class="fine-tune">
+                            <button class="btn-micro" id="btn-beat-minus">- 0.1</button>
+                            <input type="number" id="beat-freq-num" min="0.5" max="50" step="0.1" value="6.0">
+                            <button class="btn-micro" id="btn-beat-plus">+ 0.1</button>
+                        </div>
+                    </div>
+
+                    <!-- Carrier Frequency -->
+                    <div class="input-group">
+                        <div class="input-header">
+                            <label for="carrier-freq">Base Tone (Carrier)</label>
+                            <div class="value-display"><span id="carrier-freq-val">150</span> Hz</div>
+                        </div>
+                        <div class="range-container">
+                            <input type="range" id="carrier-freq" min="80" max="250" step="1" value="150">
+                        </div>
+                        <div class="carrier-labels">
+                            <span>Deep (80 Hz)</span>
+                            <span>Warm (150 Hz)</span>
+                            <span>Clear (250 Hz)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duration and Fade-out -->
+                <div class="control-card glass-panel">
+                    <h2 class="card-title">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        Session Duration
+                    </h2>
+                    <div class="duration-selector">
+                        <div class="duration-presets">
+                            <button class="btn-preset-time" data-minutes="5">5 min</button>
+                            <button class="btn-preset-time" data-minutes="15">15 min</button>
+                            <button class="btn-preset-time active" data-minutes="30">30 min</button>
+                            <button class="btn-preset-time" data-minutes="45">45 min</button>
+                            <button class="btn-preset-time" data-minutes="60">60 min</button>
+                        </div>
+                        <div class="manual-duration">
+                            <label for="duration-num">Custom Duration (min):</label>
+                            <input type="number" id="duration-num" min="1" max="180" value="30">
+                        </div>
+                    </div>
+                    <div class="info-alert">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                        <span>Automatic 3-minute fade-out included at the end to prevent sudden awakenings or disruptions.</span>
+                    </div>
+                </div>
+
+                <!-- Volume Mixer -->
+                <div class="control-card glass-panel">
+                    <h2 class="card-title">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        </svg>
+                        Audio Mixer
+                    </h2>
+                    
+                    <!-- Volume Beat -->
+                    <div class="mixer-row">
+                        <div class="mixer-label">
+                            <span>Main Beat</span>
+                            <span class="mixer-percent" id="beat-vol-val">70%</span>
+                        </div>
+                        <div class="mixer-slider-container">
+                            <input type="range" id="beat-vol" min="0" max="100" value="70">
+                        </div>
+                    </div>
+
+                    <!-- Volume Pink Noise -->
+                    <div class="mixer-row">
+                        <div class="mixer-label">
+                            <span class="flex-align">
+                                Pink Noise (Background)
+                                <button class="btn-mute" id="btn-mute-pink" title="Mute pink noise">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" id="mute-pink-icon">
+                                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                                    </svg>
+                                </button>
+                            </span>
+                            <span class="mixer-percent" id="pink-vol-val">30%</span>
+                        </div>
+                        <div class="mixer-slider-container">
+                            <input type="range" id="pink-vol" min="0" max="100" value="30">
+                        </div>
+                    </div>
+
+                    <!-- Volume Master -->
+                    <div class="mixer-row master-volume-row">
+                        <div class="mixer-label">
+                            <span class="bold">Master Volume</span>
+                            <span class="mixer-percent bold" id="master-vol-val">80%</span>
+                        </div>
+                        <div class="mixer-slider-container">
+                            <input type="range" id="master-vol" min="0" max="100" value="80">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Right Column: Visualizer & Player / Export -->
+            <section class="visualizer-column">
+                
+                <!-- Visualizer & Player Card -->
+                <div class="control-card glass-panel visualizer-card">
+                    <h2 class="card-title">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M17 5v14M22 9v6M7 5v14M2 9v6"/>
+                        </svg>
+                        Real Acoustic Interference
+                    </h2>
+                    
+                    <!-- Canvas Visualizer -->
+                    <div class="visualizer-container">
+                        <canvas id="oscilloscope"></canvas>
+                        <div class="visualizer-overlay" id="visualizer-placeholder">
+                            <p>Activate playback to visualize wave interference</p>
+                        </div>
+                    </div>
+
+                    <!-- Player Controls -->
+                    <div class="player-controls">
+                        <div class="time-display">
+                            <span id="current-time">00:00:00</span>
+                            <span class="time-separator">/</span>
+                            <span id="total-time">00:30:00</span>
+                        </div>
+
+                        <div class="player-buttons">
+                            <!-- Play/Pause -->
+                            <button class="btn-player btn-play" id="btn-play" title="Start Preview">
+                                <span class="play-icon">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3"/>
+                                    </svg>
+                                </span>
+                                <span class="pause-icon hidden">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                                        <rect x="6" y="4" width="4" height="16"/>
+                                        <rect x="14" y="4" width="4" height="16"/>
+                                    </svg>
+                                </span>
+                            </button>
+
+                            <!-- Stop -->
+                            <button class="btn-player btn-stop" id="btn-stop" disabled title="Stop">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <rect x="4" y="4" width="16" height="16" rx="2"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="status-badge" id="app-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Audio Ready</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Export Card -->
+                <div class="control-card glass-panel export-card">
+                    <h2 class="card-title">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                        </svg>
+                        Professional Audio Export
+                    </h2>
+                    <p class="export-description">
+                        Generate and download your session with the pink noise background mix and the 3-minute fade-out. The file is synthesized directly in your browser.
+                    </p>
+
+                    <div class="export-buttons-group">
+                        <button class="btn-export" id="btn-export-wav">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                            </svg>
+                            Export Lossless .WAV
+                        </button>
+                        
+                        <button class="btn-export btn-export-secondary" id="btn-export-mp3">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                            </svg>
+                            Export Compact .MP3
+                        </button>
+                    </div>
+
+                    <!-- Exporting Progress Bar Overlay -->
+                    <div class="export-progress-container hidden" id="export-progress-area">
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="export-progress-bar" style="width: 0%;"></div>
+                        </div>
+                        <div class="progress-info">
+                            <span class="progress-status" id="export-status-text">Rendering audio...</span>
+                            <span class="progress-percentage" id="export-percent-text">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scientific Explanation -->
+                <div class="control-card glass-panel science-card">
+                    <h3 class="science-title">What is a Real Monaural Beat?</h3>
+                    <p class="science-text">
+                        Unlike binaural beats (which require headphones because they send different frequencies to each ear, letting the brain integrate them), <strong>monaural beats</strong> are physically mixed directly in the audio signal itself.
+                    </p>
+                    <p class="science-text">
+                        Two sound waves with slightly different frequencies physically interfere with each other, creating a physical amplitude (volume) pulsation that stimulates the auditory system. This acoustic phenomenon works <strong>perfectly with both headphones and standard speakers</strong>, making it ideal for reproduction in your bedroom or office via external speakers.
+                    </p>
+                </div>
+
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2026 Monoaurals. Developed for maximum acoustic effectiveness and relaxation.</p>
+        </footer>
+    </div>
+
+    <!-- LAME MP3 Encoder -->
+    <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"></script>
+    <!-- Application JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
